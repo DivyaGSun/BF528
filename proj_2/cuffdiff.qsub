@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#$ -cwd
+#$ -P bf528
+#$ -j y
+#$ -pe mpi_16_tasks_per_node 16
+#$ -l h_rt=48:00:00
+
+#loading modules
+source /etc/bashrc 
+module load cufflinks 
+
+P0BAM=/projectnb/bf528/users/lava_lamp/project_5/divya_pr5/P0_1_tophat/accepted_hits.bam # put the full path to your accepted_hits.bam file here 
+
+SAMPLEDIR=/project/bf528/project_2/data/samples/ 
+  P0REPS=$P0BAM,$SAMPLEDIR/P0_2/accepted_hits.bam
+ADREPS=$SAMPLEDIR/Ad_1/accepted_hits.bam,$SAMPLEDIR/Ad_2/accepted_hits.bam 
+
+LABEL="P0,Ad" 
+OUTDIR=./cuffdiff_out 
+FASTA=/project/bf528/project_2/reference/mm9.fa
+
+cuffdiff -p 16 -L $LABEL -u -b $FASTA -o $OUTDIR $SAMPLEDIR/merged_asm/merged.gtf $P0REPS $ADREPS

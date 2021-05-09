@@ -1,0 +1,21 @@
+#!/bin/bash -l
+
+#$ -P bf528
+#$ -j y
+#$ -pe mpi_16_tasks_per_node 16
+
+##Loading modules
+
+module load python3
+module load rseqc/3.0.0
+module load samtools/0.1.19
+
+# Calculate the RNA-seq reads coverage over gene body
+geneBody_coverage.py -i P0_1_tophat/accepted_hits.bam -r /project/bf528/project_2/reference/annot/mm9.bed -o gB
+
+# Calculates the inner distance(insert distance) of RNA-seq fragments
+inner_distance.py -i P0_1_tophat/accepted_hits.bam -r /project/bf528/project_2/reference/annot/mm9.bed -o indist
+
+# Summarizing mapping statistics of BAM or SAM files
+bam_stat.py -i P0_1_tophat/accepted_hits.bam
+echo "Job finished: $(date +%F)"
