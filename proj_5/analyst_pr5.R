@@ -28,26 +28,6 @@ png("heatmap_clusters.png", height = 800, width = 1000)
 DoHeatmap(RDS, features = top_markers$gene) + NoLegend()
 dev.off()
 
-# Clustering
-# From heatmap, we know clusters (1,2), (3,9), and (6,8) are likely to overlap
-panglao <- read_tsv("https://panglaodb.se/markers/PanglaoDB_markers_27_Mar_2020.tsv.gz") %>%  
-  filter(str_detect(species,"Hs")) %>% 
-  select(c("official gene symbol", "cell type", "organ"))
-
-
-# Delta (SST) = 0
-# Alpha (GCG) = 1, 2
-# Acinar (CPA1) - 3, 9
-# Ductal (KRT19) - 4
-# Stellate (PDGFRB) - 5
-# Beta(INS) = 6, 8
-# Gamma (PPY) = 7
-# Vascular (VWF, PECAM1, CD34) - 10
-# Macrophage (CD163, CD58, IgG) - 11
-# Epsilon (GHRL) - None Found
-# Cytotoxic T (CD3, CD8, TRAC) - None Found
-# Mast (TPSAB1, KIT, CPA3) - None Found
-
 # Violin Plots Using Features Provided in Paper
 pdf("violins.pdf")
 VlnPlot(RDS, features = c("GCG")) # Alpha
