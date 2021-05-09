@@ -5,7 +5,7 @@ library(tidyverse)
 
 set.seed(5) 
 # read data
-data=read.table("/projectnb/bf528/users/lava_lamp/project_5/divyas3_pr5/P0_1_cufflinks/genes.fpkm_tracking", header=TRUE)
+data=read.table("/projectnb/bf528/users/lava_lamp/project_5/divya_pr5/P0_1_cufflinks/genes.fpkm_tracking", header=TRUE)
 
 
 # removing zero fpkm values
